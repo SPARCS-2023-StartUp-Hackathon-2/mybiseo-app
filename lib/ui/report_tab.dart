@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mybiseo_app/assets/coloring.dart';
 import 'package:mybiseo_app/assets/font.dart';
+import 'package:mybiseo_app/ui/reward_screen.dart';
 import 'package:mybiseo_app/widget/general_safe_area.dart';
 import 'package:semicircle_indicator/semicircle_indicator.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -34,55 +38,60 @@ class _ReportTabState extends State<ReportTab> {
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 24, horizontal: 19),
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "#칭호\n#닉네임",
-                        style: Font.H3,
-                      ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.keyboard_arrow_right))
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: Coloring.blue[10],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+            GestureDetector(
+              onTap: () {
+                Get.to(RewardScreen());
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 24, horizontal: 19),
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  children: [
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ReportSegment(),
-                        Container(
-                          width: 1,
-                          height: 25,
-                          color: Coloring.gray[50],
+                        Text(
+                          "#칭호\n#닉네임",
+                          style: Font.H3,
                         ),
-                        ReportSegment(),
-                        Container(
-                          width: 1,
-                          height: 25,
-                          color: Coloring.gray[50],
-                        ),
-                        ReportSegment(),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.keyboard_arrow_right))
                       ],
                     ),
-                  )
-                ],
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: Coloring.blue[10],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ReportSegment(),
+                          Container(
+                            width: 1,
+                            height: 25,
+                            color: Coloring.gray[50],
+                          ),
+                          ReportSegment(),
+                          Container(
+                            width: 1,
+                            height: 25,
+                            color: Coloring.gray[50],
+                          ),
+                          ReportSegment(),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             Container(
@@ -146,10 +155,40 @@ class _ReportTabState extends State<ReportTab> {
                     ),
                   if (current_index == 1)
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
                           child: Column(
-                            children: [],
+                            children: [
+                              HackSegment(
+                                start: DateTime(2023, 1, 10),
+                                end: DateTime(2023, 1, 30),
+                              ),
+                              HackSegment(
+                                start: DateTime(2023, 1, 10),
+                                end: DateTime(2023, 2, 20),
+                              ),
+                              HackSegment(
+                                start: DateTime(2023, 1, 1),
+                                end: DateTime(2023, 9, 25),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  log("아직 안 만들었지롱 ㅋㅋ");
+                                },
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      Icon(Icons.add),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 12),
+                                        child: Text("새 Hack 등록하기"),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         )
                       ],
@@ -200,18 +239,59 @@ class _ReportSegmentState extends State<ReportSegment> {
 }
 
 class HackSegment extends StatefulWidget {
-  const HackSegment({Key? key}) : super(key: key);
+  const HackSegment({Key? key, required this.start, required this.end})
+      : super(key: key);
+
+  final DateTime start;
+  final DateTime end;
 
   @override
   State<HackSegment> createState() => _HackSegmentState();
 }
 
 class _HackSegmentState extends State<HackSegment> {
+  double ratio = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    int totalDuration = widget.end.difference(widget.start).inSeconds;
+    int pastDuration = DateTime.now().difference(widget.start).inSeconds;
+    ratio = pastDuration * 10 / totalDuration;
+    print(ratio);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        children: [StepProgressIndicator(totalSteps: 10)],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "#Hack",
+            style: Font.Headline,
+          ),
+          Text(
+            "#일 동",
+            style: Font.Caption,
+          ),
+          StepProgressIndicator(
+            totalSteps: 10,
+            size: 8,
+            customColor: (index) {
+              if (index + 1 > ratio) {
+                return Coloring.gray[10]!;
+              }
+              return Coloring.red[30]!;
+            },
+          ),
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(vertical: 20),
+            height: 1,
+            color: Coloring.gray[10],
+          )
+        ],
       ),
     );
   }
