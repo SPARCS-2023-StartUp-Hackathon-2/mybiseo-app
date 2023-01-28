@@ -7,6 +7,7 @@ import 'package:mybiseo_app/assets/font.dart';
 import 'package:mybiseo_app/assets/strings.dart';
 import 'package:mybiseo_app/components/button.dart';
 import 'package:mybiseo_app/ui/evaluation_screen.dart';
+import 'package:mybiseo_app/ui/user/user_screen.dart';
 
 class MainTab extends StatefulWidget {
   const MainTab({Key? key}) : super(key: key);
@@ -33,9 +34,11 @@ class _MainTabState extends State<MainTab> {
                 ),
                 Expanded(child: SizedBox.shrink()),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(UserScreen());
+                  },
                   icon: Icon(
-                    Icons.add,
+                    Icons.person,
                     size: 30,
                   ),
                 ),
