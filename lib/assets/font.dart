@@ -45,8 +45,8 @@ class Font {
   );
   static TextStyle Caption = TextStyle(
     color: Colors.black,
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    height: 42 / 32,
+    fontSize: 12,
+    fontWeight: FontWeight.w300,
+    height: 1,
   );
 }

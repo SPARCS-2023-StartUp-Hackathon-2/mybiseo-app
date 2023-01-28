@@ -19,6 +19,26 @@ class _MainTabState extends State<MainTab> {
       body: Column(
         children: [
           Container(
+            margin: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "데일리",
+                  style: Font.H1,
+                ),
+                Expanded(child: SizedBox.shrink()),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.add,
+                    size: 30,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(vertical: 24, horizontal: 20),
             margin: EdgeInsets.symmetric(vertical: 32, horizontal: 30),
@@ -33,20 +53,14 @@ class _MainTabState extends State<MainTab> {
                 Row(
                   children: [
                     SummaryBarSection(
-                      color: Colors.redAccent,
-                      size: 3,
+                      type: Strings.hack,
+                      start: DateTime(2000, 1, 1, 3, 20),
+                      end: DateTime(2000, 1, 1, 4, 20),
                     ),
                     SummaryBarSection(
-                      color: Colors.yellow,
-                      size: 2,
-                    ),
-                    SummaryBarSection(
-                      color: Colors.greenAccent,
-                      size: 4,
-                    ),
-                    SummaryBarSection(
-                      color: Colors.blueAccent,
-                      size: 1,
+                      type: Strings.etc,
+                      start: DateTime(2000, 1, 1, 4, 20),
+                      end: DateTime(2000, 1, 1, 5, 20),
                     ),
                   ],
                 ),
@@ -80,20 +94,47 @@ class _MainTabState extends State<MainTab> {
   }
 }
 
-class SummaryBarSection extends StatelessWidget {
-  const SummaryBarSection({Key? key, this.size = 1, this.color = Colors.black})
+class SummaryBarSection extends StatefulWidget {
+  const SummaryBarSection(
+      {Key? key, required this.type, required this.start, required this.end})
       : super(key: key);
 
-  final size;
-  final color;
+  final String type;
+  final DateTime start;
+  final DateTime end;
+
+  @override
+  State<SummaryBarSection> createState() => _SummaryBarSectionState();
+}
+
+class _SummaryBarSectionState extends State<SummaryBarSection> {
+  final Map<String, Color> colorMap = {
+    'null': Colors.white,
+    Strings.sleep: Coloring.gray[10]!,
+    Strings.meal: Coloring.green[10]!,
+    Strings.workout: Coloring.blue[40]!,
+    Strings.hack: Coloring.red[30]!,
+    Strings.etc: Coloring.violet[20]!
+  };
+
+  int length = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Duration duration = widget.end.difference(widget.start);
+    length = duration.inHours;
+    print(length);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      flex: size,
+      flex: length,
       child: Container(
         height: 25,
-        color: color,
+        color: colorMap[widget.type],
       ),
     );
   }
