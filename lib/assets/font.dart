@@ -21,15 +21,15 @@ class Font {
   );
   static TextStyle Headline = TextStyle(
     color: Colors.black,
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
     height: 42 / 32,
   );
   static TextStyle Body = TextStyle(
     color: Colors.black,
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: FontWeight.w600,
-    height: 42 / 32,
+    height: 1.25,
   );
   static TextStyle BodySmall = TextStyle(
     color: Colors.black,

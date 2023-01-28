@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl/intl.dart';
 import 'package:mybiseo_app/assets/coloring.dart';
 import 'package:mybiseo_app/assets/font.dart';
 import 'package:mybiseo_app/assets/strings.dart';
+import 'package:mybiseo_app/components/button.dart';
+import 'package:mybiseo_app/ui/evaluation_screen.dart';
 
 class MainTab extends StatefulWidget {
   const MainTab({Key? key}) : super(key: key);
@@ -74,18 +78,11 @@ class _MainTabState extends State<MainTab> {
               ],
             ),
           ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 16),
-            margin: EdgeInsets.symmetric(vertical: 16, horizontal: 30),
-            decoration: BoxDecoration(
-                color: Coloring.blue[30],
-                borderRadius: BorderRadius.circular(16)),
-            alignment: Alignment.center,
-            child: Text(
-              "내일 일정 만들기",
-              style: TextStyle(color: Colors.white),
-            ),
+          Button(
+            title: "내일 일정 만들기",
+            onTap: () {
+              Get.to(EvaluationScreen());
+            },
           ),
           DailyCalendar(),
         ],
