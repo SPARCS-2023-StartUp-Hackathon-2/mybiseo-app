@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:mybiseo_app/assets/coloring.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class CalTab extends StatefulWidget {
   const CalTab({Key? key}) : super(key: key);
@@ -9,32 +10,24 @@ class CalTab extends StatefulWidget {
 }
 
 class _CalTabState extends State<CalTab> {
-  WebViewController _webViewController = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(const Color(0x00000000))
-    ..setNavigationDelegate(
-      NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {},
-        onWebResourceError: (WebResourceError error) {},
-        onNavigationRequest: (NavigationRequest request) {
-          if (request.url.startsWith('https://www.youtube.com/')) {
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },
-      ),
-    )
-    ..loadRequest(Uri.parse('https://flutter.dev'));
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: WebViewWidget(
-        controller: _webViewController,
+    return Scaffold(
+      backgroundColor: Coloring.bg_color,
+      body: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            decoration: BoxDecoration(color: Colors.white),
+            child: TableCalendar(
+                headerVisible: false,
+                focusedDay: DateTime.now(),
+                firstDay: DateTime.now().subtract(Duration(days: 365 * 5)),
+                lastDay: DateTime.now().add(
+                  Duration(days: 365 * 5),
+                )),
+          )
+        ],
       ),
     );
   }

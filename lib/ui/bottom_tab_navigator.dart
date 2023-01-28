@@ -40,7 +40,7 @@ class _BottomTabState extends State<BottomTab> {
                                 page_idx = 0;
                               });
                             },
-                            icon: Icon(Icons.add)),
+                            icon: Icon(Icons.access_time_outlined)),
                       ],
                     ),
                     Column(
@@ -51,7 +51,7 @@ class _BottomTabState extends State<BottomTab> {
                                 page_idx = 1;
                               });
                             },
-                            icon: Icon(Icons.add)),
+                            icon: Icon(Icons.calendar_month_outlined)),
                       ],
                     ),
                     Column(
@@ -62,7 +62,7 @@ class _BottomTabState extends State<BottomTab> {
                                 page_idx = 2;
                               });
                             },
-                            icon: Icon(Icons.add)),
+                            icon: Icon(Icons.auto_graph_rounded)),
                       ],
                     ),
                   ],

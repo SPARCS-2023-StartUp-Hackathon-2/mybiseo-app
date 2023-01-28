@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mybiseo_app/assets/coloring.dart';
 import 'package:mybiseo_app/ui/splash_screen.dart';
 
 void main() {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         title: 'MyBiseo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          backgroundColor: Coloring.bg_color,
         ),
         home: SplashScreen());
   }
