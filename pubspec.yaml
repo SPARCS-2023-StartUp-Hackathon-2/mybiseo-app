@@ -45,6 +45,15 @@ dependencies:
   carousel_slider: ^4.2.1
   semicircle_indicator: ^1.1.1
   step_progress_indicator: ^1.0.2
+  provider: ^6.0.5
+  kakao_flutter_sdk_user: ^1.4.0
+  json_annotation: ^4.8.0
+  package_info: ^2.0.2
+  platform: ^3.1.0
+  shared_preferences: ^2.0.17
+  http: ^0.13.5
+  smooth_page_indicator: ^1.0.0+2
+  home_widget: ^0.2.0+1
 
 dev_dependencies:
   flutter_test:
@@ -69,9 +78,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - lib/assets/엠블럼/
+    - lib/assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

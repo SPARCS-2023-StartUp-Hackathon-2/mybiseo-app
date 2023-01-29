@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mybiseo_app/ui/bottom_tab_navigator.dart';
+import 'package:mybiseo_app/ui/login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -18,11 +18,18 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigate() async {
     await Future.delayed(Duration(seconds: 2));
-    Get.to(BottomTab());
+    Get.to(LoginScreen());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Image.asset(
+          "lib/assets/images/splash.png",
+          width: 300,
+        ),
+      ),
+    );
   }
 }

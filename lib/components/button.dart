@@ -22,7 +22,7 @@ class _ButtonState extends State<Button> {
         padding: EdgeInsets.symmetric(vertical: 16),
         margin: EdgeInsets.symmetric(vertical: 16, horizontal: 30),
         decoration: BoxDecoration(
-            color: Coloring.blue[30], borderRadius: BorderRadius.circular(16)),
+            color: Coloring.blue[40], borderRadius: BorderRadius.circular(16)),
         alignment: Alignment.center,
         child: Text(
           widget.title,

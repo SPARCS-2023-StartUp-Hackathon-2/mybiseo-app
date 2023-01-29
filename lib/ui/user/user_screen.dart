@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mybiseo_app/assets/coloring.dart';
 import 'package:mybiseo_app/assets/font.dart';
+import 'package:mybiseo_app/ui/login/login_screen.dart';
 import 'package:mybiseo_app/ui/user/account_screen.dart';
 import 'package:mybiseo_app/ui/user/profile_screen.dart';
 import 'package:mybiseo_app/widget/general_safe_area.dart';
@@ -12,6 +13,7 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GeneralSafeArea(
+      bottomColor: Coloring.bg_color,
       child: Scaffold(
         backgroundColor: Coloring.bg_color,
         body: Column(
@@ -32,7 +34,7 @@ class UserScreen extends StatelessWidget {
                         size: 50,
                       )),
                   Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 30),
+                    padding: const EdgeInsets.only(top: 18, left: 30),
                     child: Text(
                       "마이페이지",
                       style: Font.H1,
@@ -77,12 +79,17 @@ class UserScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                "로그아웃",
-                style: TextStyle(
-                    color: Coloring.gray[30],
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
+              child: GestureDetector(
+                onTap: () {
+                  Get.offAll(LoginScreen());
+                },
+                child: Text(
+                  "로그아웃",
+                  style: TextStyle(
+                      color: Coloring.gray[30],
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
               ),
             )
           ],

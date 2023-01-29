@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mybiseo_app/assets/coloring.dart';
 import 'package:mybiseo_app/assets/font.dart';
@@ -46,14 +48,71 @@ class _CalTabState extends State<CalTab> {
               child: TableCalendar(
                 headerVisible: false,
                 focusedDay: DateTime.now(),
-                firstDay: DateTime.now().subtract(Duration(days: 365 * 5)),
+                firstDay: DateTime.now().subtract(Duration(days: 28)),
                 lastDay: DateTime.now().add(
-                  Duration(days: 365 * 5),
+                  Duration(days: 2),
                 ),
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  dowTextFormatter: (dateTime, locale) {
+                    Map<int, String> mapper = {
+                      1: 'M',
+                      2: 'T',
+                      3: 'W',
+                      4: 'T',
+                      5: 'F',
+                      6: 'S',
+                      7: 'S',
+                    };
+                    return mapper[dateTime.weekday]!;
+                  },
+                  weekdayStyle: TextStyle(
+                      color: Coloring.gray[40],
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                  weekendStyle: TextStyle(
+                      color: Coloring.blue[40],
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+                calendarBuilders: CalendarBuilders(
+                    defaultBuilder: (context, day, focusedDay) {
+                  return Container(
+                    width: 40,
+                    height: 40,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: day.isBefore(DateTime.now())
+                            ? Coloring.gray[10 * (1 + 2 * Random().nextInt(4))]
+                            : Coloring.green[10],
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Text(day.day.toString()),
+                  );
+                }, todayBuilder: (context, day, focusedDay) {
+                  return Container(
+                    width: 40,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: Text(day.day.toString()),
+                  );
+                }, outsideBuilder: (context, day, focusedDay) {
+                  return Container();
+                }),
               ),
             ),
             Column(
-              children: [CalendarListSection()],
+              children: [
+                CalendarListSection(
+                    date: '30',
+                    day: '월요일',
+                    title: '정기모임',
+                    subTitle: '동아리 방 가기'),
+                CalendarListSection(
+                  date: '31',
+                  day: '화요일',
+                  title: "교수님 면담",
+                  subTitle: "진 면담",
+                )
+              ],
             )
           ],
         ),
@@ -63,7 +122,18 @@ class _CalTabState extends State<CalTab> {
 }
 
 class CalendarListSection extends StatelessWidget {
-  const CalendarListSection({Key? key}) : super(key: key);
+  const CalendarListSection(
+      {Key? key,
+      required this.date,
+      required this.day,
+      required this.title,
+      required this.subTitle})
+      : super(key: key);
+
+  final String date;
+  final String day;
+  final String title;
+  final String subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +156,11 @@ class CalendarListSection extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "20",
+                  date,
                   style: Font.H2,
                 ),
                 Text(
-                  "금요일",
+                  day,
                   style: Font.Caption,
                 )
               ],
@@ -102,16 +172,20 @@ class CalendarListSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "정기 모임",
+                  title,
                   style: Font.Headline,
                 ),
                 Text(
-                  "홍대 가기",
+                  "",
+                  style: TextStyle(fontSize: 5),
+                ),
+                Text(
+                  subTitle,
                   style: Font.Caption,
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     );

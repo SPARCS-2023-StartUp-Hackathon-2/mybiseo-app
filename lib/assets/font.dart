@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class Font {
   static TextStyle H1 = TextStyle(
     color: Colors.black,
-    fontSize: 32,
+    fontSize: 35,
     fontWeight: FontWeight.w700,
     height: 42 / 32,
+    letterSpacing: -2,
   );
   static TextStyle H2 = TextStyle(
     color: Colors.black,
